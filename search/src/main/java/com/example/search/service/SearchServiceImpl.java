@@ -17,6 +17,7 @@ import java.util.concurrent.Executors;
 @Service
 public class SearchServiceImpl implements SearchService{
     private final RestTemplate restTemplate;
+    private final ExecutorService pool = Executors.newCachedThreadPool();
 
     @Autowired
     public SearchServiceImpl(RestTemplate restTemplate) {
@@ -29,7 +30,7 @@ public class SearchServiceImpl implements SearchService{
         //Student student = restTemplate.getForObject("http://university/student?id=4", Student.class);
         //System.out.println(student.toString());
 
-        ExecutorService pool = Executors.newCachedThreadPool();
+
         List<CompletableFuture<Object>> list = new ArrayList<>();
 
         CompletableFuture<Object> cf1 = CompletableFuture.supplyAsync(() -> {
